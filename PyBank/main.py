@@ -68,6 +68,8 @@ with open(budgetCsvFilePath) as budget:
     averageChange = totalChange/(totalMonths - 1)
     
     # print to console for debug.
+    print ("Financial Analysis")
+    print ("------------------------------------------")
     print (f"Total Months: {totalMonths}")
     print (f"Total: ${totalRevenue}")
     print (f"Average Change: ${averageChange}")
@@ -76,6 +78,8 @@ with open(budgetCsvFilePath) as budget:
     
     # write results to a file
     with open('Analysis/FinancialAnalysis.txt', 'w') as resultsFile:
+        resultsFile.write ("Financial Analysis\n")
+        resultsFile.write("---------------------------------------\n")
         resultsFile.write (f"Total Months: {totalMonths}\n")
         resultsFile.write (f"Total: ${totalRevenue}\n")
         resultsFile.write (f"Average Change: ${averageChange}\n")
