@@ -19,28 +19,45 @@ with open(pollDataFilePath) as pollData:
     # read the header row
     headerRow = next(reader)
     
-    candidates = {}
+    #declare variables to compute total votes, and temporary 
+    #popular votes to find popular votes winner
+    candidates = {} # Candidate dictionary - Empty at first
     totalVotes = 0
-    tempHighestPopularVotes = 0
-    popularVoteWinner = ""
+    tempHighestPopularVotes = 0 # initalize highest popular vote count
+    popularVoteWinner = "" # temporarily set to empty
     
+    # read election data file row by row
     for row in reader:
  
+        #each row is one vote - aggregate to find total votes
         totalVotes = totalVotes + 1
         
+        #if candidate already added to dictionary then increment
+        # candidate vote count
         if (row[2] in candidates.keys()) :
             candidates[row[2]] = candidates[row[2]] + 1
         else:
+            # new candidate - add to dictionary and initialize vote count
             candidates[row[2]] = 1
             
     print ("Election Results")
     print ("--------------------------------")
     print (f"Total Votes: {totalVotes}")   
-    print ("--------------------------------")     
+    print ("--------------------------------")   
+    
+    #loop through all the candidates in the dictionary
     for candidate in candidates:
+        
+        # get candidate votes
         candidateVotes = candidates[candidate]
+        
+        # Compute candidate win percentage
         percentageWon = "{:.3f}".format(candidateVotes * 100 / totalVotes)
         print(f"{candidate}: {percentageWon}% ({candidateVotes})")
+        
+        # Check if candidate vote against temp variable and 
+        # if greater than temp then update temp count with candidate count
+        # and candidate name
         if (candidateVotes > tempHighestPopularVotes):
             popularVoteWinner = candidate
             tempHighestPopularVotes = candidateVotes
